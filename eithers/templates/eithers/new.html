@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block base %}
+
+<form action="{% url 'eithers:create' %}" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <label for="subject" class="mt-5">질문 주제</label>
+  <input type="text" name="title" id="subject" class="form-control"><br>
+  <label for="pick_a">선택1</label>
+  <input type="text" name="issue_a" id="pick_a" class="form-control"><br>
+  <label for="a_img">선택1 이미지</label> <br>
+  <input type="file" name="image_a" id="a_img" accept="image/*" class="btn btn-outline-light"><br><br>
+  
+  <label for="pick_b">선택2</label>
+  <input type="text" name="issue_b" id="pick_b" class="form-control"><br>
+  <label for="b_img">선택2 이미지</label> <br>
+  <input type="file" name="image_b" id="b_img" accept="image/*" class="btn btn-outline-light"><br><br>
+  <input type="submit" value="제출" class="btn btn-dark float-right">
+
+</form>
+{% endblock base %}

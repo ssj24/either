@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block base %}
+
+<h1 class="text-center m-5 font-weight-bold">Which one is your PICK?</h1>
+
+{% for question in questions %}
+
+<div class="jumbotron">
+  <h2 class="display-6 text-center">{{ question.title }}</h2>
+  
+  <p class="float-right"> {{ question.answer_set.all|length }}개의 투표 </p><br>
+  <hr class="my-4 clear">
+  <a class="btn btn-danger btn-lg float-right" href="{% url 'eithers:detail' question.pk %}" role="button">Go Vote</a>
+
+</div>
+{% endfor %}
+{% endblock base %}

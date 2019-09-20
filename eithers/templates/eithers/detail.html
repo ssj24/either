@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block base %}
+<h1 class="text-center mt-3">더 재미있는 과목은?</h1>
+<div class="d-flex justify-content-between mt-5">
+  <label for="inlineRadio1">
+    <div class="card text-center" style="width: 18rem;">
+      <img src="{{ question.image_a.url }} " class="card-img-top btn btn-outline-success" alt="left">
+      <div class="card-body">
+        <p class="card-text">{{ question.issue_a }}</p>
+      </div>
+    </div>
+  </label>
+  &nbsp;
+  <h1 class="align-middle my-auto">VS</h1>
+  &nbsp;
+  <label for="inlineRadio2">
+    <div class="card text-center" style="width: 18rem;">
+      <img src="{{ question.image_b.url }}" class="card-img-top btn btn-outline-danger" alt="right">
+      <div class="card-body">
+        <p class="card-text">{{ question.issue_b }}</p>
+      </div>
+    </div>
+  </label>
+</div>
+<br>
+
+<div class="progress">
+  <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar"
+    style="width: {{l}}%" aria-valuenow="{{l}}" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar"
+    style="width: {{r}}%" aria-valuenow="{{r}}}" aria-valuemin="0" aria-valuemax="100"></div>
+
+</div>
+<br>
+
+<form action="{% url 'eithers:comments_create' question.pk %} " method="POST">
+  {% csrf_token %}
+  <div class="d-flex justify-content-center">
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="pick" id="inlineRadio1" value=0>
+      <label class="form-check-label btn btn-success btn-xl" for="inlineRadio1">{{ question.issue_a }} </label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="pick" id="inlineRadio2" value=1>
+      <label class="form-check-label btn btn-danger btn-xl" for="inlineRadio2">{{ question.issue_b }}</label>
+    </div>
+
+  </div>
+  <br>
+  <div class="input-group mb-3">
+    <input type="text" name="comment" id="answer" class="form-control" aria-describedby="comments">
+    <div class="input-group-append">
+      <input type="submit" value="Submit" class="btn btn-dark input-group-text" id="comments">
+    </div>
+  </div>
+  <form action="{{ answer.delete }} answer.pk question.pk" method="POST">
+    {% for answer in answers %}
+    <hr>
+    {% if answer.pick == 0 %}
+    <span class="text-success"> {{ answer.comment }} </span>
+    {% else %}
+    <span class="text-danger"> {{ answer.comment }} </span>
+    {% endif %}
+    &nbsp; &nbsp;&nbsp; <input type="submit" value="삭제" class="btn btn-outline-dark">
+
+    {% endfor %}
+  </form>
+</form>
+{% endblock base %}
