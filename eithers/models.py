@@ -12,14 +12,16 @@ class Question(models.Model):
         processors = [Thumbnail(200, 300)],
         format = 'JPEG',
         options = {'quaility' : 90},
-        upload_to='eithers/images',
+        upload_to = 'eithers/images',
+        blank = True,
     )
 
     image_b = ProcessedImageField(
         processors = [Thumbnail(200, 300)],
         format = 'JPEG',
         options = {'quaility' : 90},
-        upload_to='eithers/images',
+        upload_to = 'eithers/images',
+        blank = True,
     )
 
 
